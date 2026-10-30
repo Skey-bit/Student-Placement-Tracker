@@ -3,625 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Placement Pro | Student Placement Tracker</title>
-
+<title>PlaceTrack | Student Placement Tracker</title>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f4f6fa;
-    color: #202b3c;
-}
-
-.sidebar {
-    width: 240px;
-    height: 100vh;
-    background: #17243b;
-    color: white;
-    position: fixed;
-    padding: 25px 15px;
-}
-
-.logo {
-    font-size: 23px;
-    font-weight: bold;
-    margin: 10px 10px 40px;
-}
-
-.logo span {
-    color: #36c5a1;
-}
-
-.sidebar button {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0;
-    border: none;
-    background: transparent;
-    color: #bdc8d8;
-    text-align: left;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 7px;
-}
-
-.sidebar button:hover,
-.sidebar button.active {
-    background: #293c5b;
-    color: white;
-}
-
-.main {
-    margin-left: 240px;
-    padding: 30px;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
-    gap: 15px;
-}
-
-.topbar h1 {
-    font-size: 25px;
-}
-
-.admin {
-    background: white;
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.welcome {
-    margin-bottom: 25px;
-}
-
-.welcome p {
-    color: #7c8797;
-    margin-top: 8px;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 30px;
-}
-
-.card {
-    background: white;
-    padding: 23px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px #00000008;
-}
-
-.card p {
-    color: #7c8797;
-    font-size: 14px;
-}
-
-.card h2 {
-    margin-top: 15px;
-    font-size: 28px;
-}
-
-.card small {
-    color: #16a67a;
-}
-
-.content-box {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 12px #00000008;
-}
-
-.box-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-
-button.primary {
-    background: #177cba;
-    color: white;
-    border: none;
-    padding: 11px 17px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-input, select {
-    padding: 11px;
-    border: 1px solid #dce2eb;
-    border-radius: 6px;
-    outline: none;
-    max-width: 100%;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 650px;
-}
-
-th, td {
-    padding: 15px 12px;
-    text-align: left;
-    border-bottom: 1px solid #edf0f4;
-    font-size: 14px;
-}
-
-th {
-    color: #718096;
-    background: #f8fafc;
-}
-
-.status {
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    background: #d9f8eb;
-    color: #11865d;
-}
-
-.notplaced {
-    background: #fff0d9;
-    color: #bd7915;
-}
-
-.table-wrap {
-    overflow-x: auto;
-}
-
-#studentForm {
-    display: none;
-    margin-top: 20px;
-    padding: 20px;
-    background: #f7f9fc;
-    border-radius: 10px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.form-grid input,
-.form-grid select {
-    width: 100%;
-}
-
-.form-grid button {
-    grid-column: 1 / -1;
-}
-
-.delete-btn {
-    color: #d64b4b;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-.bar {
-    background: #e9eef5;
-    height: 13px;
-    border-radius: 10px;
-    margin: 12px 0 20px;
-    overflow: hidden;
-}
-
-.bar div {
-    height: 100%;
-    background: #24b995;
-    border-radius: 10px;
-}
-
-.report-row {
-    margin-bottom: 18px;
-}
-
-footer {
-    text-align: center;
-    color: #8993a2;
-    padding: 25px;
-    font-size: 13px;
-}
-
-@media(max-width: 950px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media(max-width: 650px) {
-    .sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-    }
-
-    .sidebar button {
-        width: auto;
-        display: inline-block;
-    }
-
-    .main {
-        margin-left: 0;
-        padding: 16px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .topbar {
-        align-items: flex-start;
-    }
-}
+:root{--navy:#172554;--purple:#6657d9;--pale:#f4f5ff;--ink:#202746;--muted:#727b96;--line:#e7e9f3;--green:#159b72;--orange:#e89a35}
+*{box-sizing:border-box}body{margin:0;background:#f7f8fc;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+header{background:linear-gradient(115deg,#172554,#5546bd);color:white;padding:25px 5%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-size:23px;font-weight:800;letter-spacing:.3px}.brand span{color:#a9f0dc}
+header p{margin:6px 0 0;color:#dce1ff;font-size:13px}
+.top-tag{background:#ffffff20;border:1px solid #ffffff45;border-radius:20px;padding:9px 14px;font-size:12px}
+.layout{display:flex;min-height:calc(100vh - 95px)}aside{width:225px;background:white;border-right:1px solid var(--line);padding:22px 14px}
+.nav-label{font-size:10px;letter-spacing:1.5px;color:#9aa1b5;font-weight:bold;padding:8px 12px}
+nav button{display:block;width:100%;border:0;background:transparent;text-align:left;padding:13px 12px;margin:4px 0;border-radius:10px;color:#59627d;font-size:14px;cursor:pointer}
+nav button.active,nav button:hover{background:#efefff;color:var(--purple);font-weight:bold}
+main{padding:28px 3.5%;width:calc(100% - 225px);max-width:1500px;margin:auto}
+.page{display:none}.page.active{display:block}.heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:22px}
+h1{font-size:25px;margin:0 0 6px;color:#202746}.sub{color:var(--muted);font-size:13px;margin:0}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}
+.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:19px;box-shadow:0 5px 20px #25315b08}
+.card small{color:var(--muted);font-size:12px}.metric{font-size:29px;font-weight:800;margin-top:9px}.metric-note{font-size:11px;color:var(--green);margin-top:5px}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}.panel h3{margin:0 0 16px;font-size:16px}
+.barrow{display:grid;grid-template-columns:100px 1fr 35px;gap:10px;align-items:center;margin:14px 0;font-size:12px;color:#626b85}
+.bar{height:9px;background:#f0f1f7;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#6657d9,#49c5ad);border-radius:20px}
+button.primary,.primary{background:var(--purple);color:white;border:0;border-radius:9px;padding:11px 15px;font-weight:bold;cursor:pointer}
+button.secondary{background:#efefff;color:var(--purple);border:0;border-radius:9px;padding:10px 13px;font-weight:bold;cursor:pointer}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #dfe2ee;border-radius:9px;font:inherit;color:var(--ink);background:white}
+input:focus,select:focus,textarea:focus{outline:2px solid #d9d5ff;border-color:var(--purple)}
+.searchbox{display:flex;gap:10px;max-width:680px;margin:20px 0}.searchbox input{font-size:15px;padding:14px}
+.profile{margin-top:18px;display:none}.profile.show{display:block}.profile-top{display:flex;align-items:center;gap:15px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px}
+.avatar{width:58px;height:58px;border-radius:17px;background:#efefff;color:var(--purple);display:grid;place-items:center;font-size:22px;font-weight:bold}
+.profile-top h2{margin:0 0 5px}.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#e5f8f1;color:#10845f;font-size:11px;font-weight:bold}
+.details{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.detail{background:#f8f9fd;border-radius:10px;padding:12px}.detail small{display:block;color:var(--muted);margin-bottom:6px}.detail strong{font-size:13px;overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:650px}th,td{text-align:left;padding:13px 11px;border-bottom:1px solid var(--line)}th{color:#77809a;font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:#fafbfe}td{color:#424b66}
+.table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:13px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.toolbar input{max-width:280px}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field label{display:block;font-size:12px;color:#69728b;margin-bottom:6px}.field.full{grid-column:1/-1}
+.form-actions{display:flex;gap:10px;margin-top:17px}
+.company-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.company{background:white;border:1px solid var(--line);border-radius:13px;padding:17px}.company h3{margin:0 0 7px}.company p{margin:0;color:var(--muted);font-size:12px}
+.notice{padding:13px 15px;background:#fff8e9;border:1px solid #f5e3b8;border-radius:10px;color:#85601e;font-size:12px;line-height:1.5;margin-top:18px}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+footer{text-align:center;color:#9aa1b5;font-size:11px;padding:25px}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.company-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.layout{display:block}aside{width:100%;padding:8px;border-right:0;border-bottom:1px solid var(--line)}nav{display:flex;overflow:auto}nav button{white-space:nowrap;width:auto;padding:10px}.nav-label{display:none}main{width:100%;padding:22px 15px}.cards{gap:9px}.card{padding:14px}.metric{font-size:24px}.details{grid-template-columns:repeat(2,1fr)}.company-grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.searchbox{flex-direction:column}}
 </style>
 </head>
-
 <body>
-
-<aside class="sidebar">
-    <div class="logo">PLACEMENT<span> PRO</span></div>
-
-    <button class="active" onclick="showPage('dashboard',this)">▦ Dashboard</button>
-    <button onclick="showPage('students',this)">♙ Students</button>
-    <button onclick="showPage('placements',this)">▣ Placements</button>
-    <button onclick="showPage('reports',this)">▤ Reports</button>
-</aside>
-
-<main class="main">
-
-    <div class="topbar">
-        <h1 id="pageTitle">Dashboard Overview</h1>
-        <div class="admin">Administrator</div>
-    </div>
-
-    <section id="dashboard" class="page active">
-
-        <div class="welcome">
-            <h2>Welcome to Placement Pro 👋</h2>
-            <p>Monitor student placement performance and career progress.</p>
-        </div>
-
-        <div class="cards">
-            <div class="card">
-                <p>Total Students</p>
-                <h2 id="total">5</h2>
-                <small>Registered students</small>
-            </div>
-
-            <div class="card">
-                <p>Students Placed</p>
-                <h2 id="placed">3</h2>
-                <small>Successfully placed</small>
-            </div>
-
-            <div class="card">
-                <p>Not Placed</p>
-                <h2 id="unplaced">2</h2>
-                <small>Seeking opportunities</small>
-            </div>
-
-            <div class="card">
-                <p>Placement Rate</p>
-                <h2 id="rate">60%</h2>
-                <small>Overall performance</small>
-            </div>
-        </div>
-
-        <div class="content-box">
-            <div class="box-header">
-                <h3>Recent Student Records</h3>
-                <button class="primary" onclick="showPage('students',document.querySelectorAll('.sidebar button')[1])">
-                    View All Students
-                </button>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Course</th>
-                            <th>Company</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recentTable"></tbody>
-                </table>
-            </div>
-        </div>
-
-    </section>
-
-    <section id="students" class="page">
-
-        <div class="content-box">
-            <div class="box-header">
-                <h3>Student Management</h3>
-                <button class="primary" onclick="toggleForm()">+ Add Student</button>
-            </div>
-
-            <div id="studentForm">
-                <h3>Add New Student</h3>
-                <br>
-
-                <form class="form-grid" id="addForm">
-                    <input id="name" placeholder="Student Name" required>
-                    <input id="roll" placeholder="Roll Number" required>
-                    <input id="course" placeholder="Course" required>
-                    <input id="cgpa" type="number" min="0" max="10" step="0.01" placeholder="CGPA" required>
-                    <input id="company" placeholder="Company Name (if placed)">
-                    <input id="package" type="number" min="0" step="0.1" placeholder="Package in LPA">
-                    <select id="status">
-                        <option value="Not Placed">Not Placed</option>
-                        <option value="Placed">Placed</option>
-                    </select>
-                    <button class="primary" type="submit">Save Student</button>
-                </form>
-            </div>
-
-            <br>
-
-            <input id="search" placeholder="Search by name or roll number..." oninput="renderStudents()" style="width:100%;">
-
-            <br><br>
-
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Roll No.</th>
-                            <th>Course</th>
-                            <th>CGPA</th>
-                            <th>Company</th>
-                            <th>Package</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="studentTable"></tbody>
-                </table>
-            </div>
-        </div>
-
-    </section>
-
-    <section id="placements" class="page">
-        <div class="content-box">
-            <h2>Placement Records</h2>
-            <br>
-            <p>Track students who have successfully secured jobs.</p>
-            <br>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Student</th>
-                            <th>Company</th>
-                            <th>Package (LPA)</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="placementTable"></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section id="reports" class="page">
-        <div class="content-box">
-            <h2>Placement Performance Report</h2>
-            <br>
-
-            <div class="report-row">
-                <p>Placement Rate: <b id="reportRate">60%</b></p>
-                <div class="bar"><div id="reportBar" style="width:60%"></div></div>
-            </div>
-
-            <div class="report-row">
-                <p>Students Placed: <b id="reportPlaced">3</b></p>
-            </div>
-
-            <div class="report-row">
-                <p>Students Not Placed: <b id="reportUnplaced">2</b></p>
-            </div>
-
-            <div class="report-row">
-                <p>Highest Package: <b id="highest">8 LPA</b></p>
-            </div>
-
-            <div class="report-row">
-                <p>Average Package: <b id="average">5.17 LPA</b></p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        Student Placement Performance Tracker | College Project
-    </footer>
-
-</main>
-
+<header><div><div class="brand">Place<span>Track</span></div><p>Student Placement Performance Tracker</p></div><div class="top-tag">COLLEGE PLACEMENT PORTAL · DEMO</div></header>
+<div class="layout">
+<aside><div class="nav-label">WORKSPACE</div><nav>
+<button class="active" data-page="dashboard">▦ &nbsp; Dashboard</button>
+<button data-page="search">⌕ &nbsp; Student Search</button>
+<button data-page="students">▤ &nbsp; Student Database</button>
+<button data-page="placements">✓ &nbsp; Placements</button>
+<button data-page="companies">▣ &nbsp; Companies</button>
+<button data-page="reports">▥ &nbsp; Reports</button>
+</nav></aside>
+<main>
+<section id="dashboard" class="page active">
+<div class="heading"><div><h1>Dashboard Overview</h1><p class="sub">A quick view of student placement performance.</p></div><button class="primary" onclick="showPage('students')">＋ Manage Students</button></div>
+<div class="cards">
+<div class="card"><small>Total Students</small><div class="metric" id="totalMetric">0</div><div class="metric-note">Registered student records</div></div>
+<div class="card"><small>Students Placed</small><div class="metric" id="placedMetric">0</div><div class="metric-note">Successfully placed</div></div>
+<div class="card"><small>Placement Rate</small><div class="metric" id="rateMetric">0%</div><div class="metric-note">Based on current records</div></div>
+<div class="card"><small>Companies</small><div class="metric" id="companyMetric">6</div><div class="metric-note">Recruiters in directory</div></div>
+</div>
+<div class="grid2"><div class="panel"><h3>Placement Status</h3><div id="statusBars"></div></div><div class="panel"><h3>Quick Actions</h3><p class="sub" style="line-height:1.8">Search a student's placement profile, review the student database, or add a new student record.</p><button class="secondary" onclick="showPage('search')">Search Student →</button><br><br><button class="secondary" onclick="showPage('students')">Open Student Database →</button></div></div>
+<div class="notice">Demo project note: the sample records are illustrative. Replace them with verified college data before presenting this as an official placement report.</div>
+</section>
+<section id="search" class="page">
+<div class="heading"><div><h1>Student Search</h1><p class="sub">Find an individual student's complete placement profile.</p></div></div>
+<div class="panel"><h3>Search by name or roll number</h3><div class="searchbox"><input id="studentQuery" placeholder="Enter student name or roll number (e.g. Aditi Sharma / BCADS001)" onkeydown="if(event.key==='Enter')searchStudent()"><button class="primary" onclick="searchStudent()">Search Student</button></div><div id="searchResult" class="empty">Enter a name or roll number to view the student's profile.</div></div>
+</section>
+<section id="students" class="page">
+<div class="heading"><div><h1>Student Database</h1><p class="sub">View, search and manage student records.</p></div><button class="primary" onclick="openForm()">＋ Add Student</button></div>
+<div class="toolbar"><input id="tableSearch" placeholder="Search name or roll number..." oninput="renderStudents()"><select id="statusFilter" onchange="renderStudents()" style="max-width:180px"><option value="">All statuses</option><option>Placed</option><option>In Process</option><option>Not Placed</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>Name</th><th>Roll Number</th><th>Course</th><th>CGPA</th><th>Status</th><th>Company</th><th>Action</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+<div id="studentForm" class="panel" style="display:none;margin-top:18px"><h3 id="formTitle">Add Student Record</h3><form id="recordForm"><div class="formgrid">
+<div class="field"><label>Student Name *</label><input name="name" required></div><div class="field"><label>Roll Number *</label><input name="roll" required></div>
+<div class="field"><label>Course / Branch</label><input name="course" value="BCA (Data Science)"></div><div class="field"><label>Semester</label><input name="semester" placeholder="e.g. 3rd Semester"></div>
+<div class="field"><label>CGPA</label><input name="cgpa" placeholder="e.g. 8.2"></div><div class="field"><label>Skills</label><input name="skills" placeholder="Python, SQL, Excel"></div>
+<div class="field"><label>Certifications</label><input name="certifications" placeholder="Course or certificate names"></div><div class="field"><label>Placement Status</label><select name="status"><option>Not Placed</option><option>In Process</option><option>Placed</option></select></div>
+<div class="field"><label>Company</label><input name="company" placeholder="Company name"></div><div class="field"><label>Job Role</label><input name="role" placeholder="e.g. Data Analyst"></div>
+<div class="field"><label>Package (LPA)</label><input name="package" placeholder="e.g. 4.5"></div><div class="field"><label>Interview History</label><input name="interviews" placeholder="e.g. ABC - Rejected; XYZ - Selected"></div>
+</div><div class="form-actions"><button class="primary" type="submit">Save Record</button><button class="secondary" type="button" onclick="closeForm()">Cancel</button></div></form></div>
+</section>
+<section id="placements" class="page"><div class="heading"><div><h1>Placement Records</h1><p class="sub">Students marked as placed or currently in process.</p></div></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll Number</th><th>Company</th><th>Job Role</th><th>Package</th><th>Status</th></tr></thead><tbody id="placementRows"></tbody></table></div></section>
+<section id="companies" class="page"><div class="heading"><div><h1>Company Directory</h1><p class="sub">Recruiter directory for the placement cell.</p></div></div><div class="company-grid" id="companyGrid"></div></section>
+<section id="reports" class="page"><div class="heading"><div><h1>Reports & Export</h1><p class="sub">Download the current student records as a CSV file.</p></div></div><div class="panel"><h3>Student data export</h3><p class="sub" style="margin-bottom:18px">Export the records currently saved in this browser.</p><button class="primary" onclick="downloadCSV()">Download Student Report (CSV)</button></div></section>
+<footer>PlaceTrack · Student Placement Performance Tracker · Academic Project Demo</footer>
+</main></div>
 <script>
-
-let students = JSON.parse(localStorage.getItem("placementStudents")) || [
-    {name:"Aarav Sharma",roll:"BCA001",course:"BCA",cgpa:8.5,company:"TCS",package:4.5,status:"Placed"},
-    {name:"Priya Verma",roll:"BCA002",course:"BCA",cgpa:9.1,company:"Infosys",package:6,status:"Placed"},
-    {name:"Rahul Singh",roll:"BCA003",course:"BCA",cgpa:7.8,company:"Wipro",package:4,status:"Placed"},
-    {name:"Neha Gupta",roll:"BCA004",course:"BCA",cgpa:8.2,company:"-",package:0,status:"Not Placed"},
-    {name:"Karan Mehta",roll:"BCA005",course:"BCA",cgpa:7.5,company:"-",package:0,status:"Not Placed"}
+const sample=[
+{name:"Aditi Sharma",roll:"BCA-DS-001",course:"BCA (Data Science)",semester:"5th Semester",cgpa:"8.6",skills:"Python, SQL, Excel, Power BI",certifications:"Excel for Data Analysis",status:"Placed",company:"TechNova Solutions",role:"Junior Data Analyst",package:"4.2",interviews:"TechNova - Selected; DataSphere - Rejected"},
+{name:"Rahul Verma",roll:"BCA-DS-002",course:"BCA (Data Science)",semester:"5th Semester",cgpa:"8.1",skills:"Java, SQL, HTML, CSS",certifications:"Java Fundamentals",status:"Placed",company:"CodeBridge Pvt Ltd",role:"Software Trainee",package:"3.8",interviews:"CodeBridge - Selected"},
+{name:"Priya Singh",roll:"BCA-DS-003",course:"BCA (Data Science)",semester:"5th Semester",cgpa:"9.1",skills:"Python, Machine Learning, Tableau",certifications:"Python Basics; Data Analytics",status:"In Process",company:"",role:"",package:"",interviews:"InnoByte - Shortlisted; TechNova - Interview Scheduled"},
+{name:"Karan Mehta",roll:"BCA-DS-004",course:"BCA (Data Science)",semester:"5th Semester",cgpa:"7.4",skills:"C, Python, Excel",certifications:"",status:"Not Placed",company:"",role:"",package:"",interviews:"BrightApps - Rejected"},
+{name:"Neha Gupta",roll:"BCA-DS-005",course:"BCA (Data Science)",semester:"5th Semester",cgpa:"8.8",skills:"SQL, Power BI, Excel",certifications:"Power BI Essentials",status:"Placed",company:"DataSphere",role:"MIS Executive",package:"3.6",interviews:"DataSphere - Selected"},
+{name:"Arjun Patel",roll:"BCA-DS-006",course:"BCA (Data Science)",semester:"5th Semester",cgpa:"7.9",skills:"Python, SQL, JavaScript",certifications:"Web Development Basics",status:"Not Placed",company:"",role:"",package:"",interviews:"CodeBridge - Rejected"}
 ];
-
-function save() {
-    localStorage.setItem("placementStudents",JSON.stringify(students));
-}
-
-function showPage(id,button) {
-    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-
-    document.querySelectorAll(".sidebar button").forEach(b=>b.classList.remove("active"));
-    if(button) button.classList.add("active");
-
-    let titles = {
-        dashboard:"Dashboard Overview",
-        students:"Student Management",
-        placements:"Placement Records",
-        reports:"Performance Reports"
-    };
-
-    document.getElementById("pageTitle").innerText=titles[id];
-    updateDashboard();
-}
-
-function toggleForm() {
-    let form=document.getElementById("studentForm");
-    form.style.display=form.style.display==="block"?"none":"block";
-}
-
-document.getElementById("addForm").addEventListener("submit",function(e) {
-    e.preventDefault();
-
-    let roll=document.getElementById("roll").value.trim();
-
-    if(students.some(s=>s.roll.toLowerCase()===roll.toLowerCase())) {
-        alert("This roll number already exists!");
-        return;
-    }
-
-    let status=document.getElementById("status").value;
-
-    students.push({
-        name:document.getElementById("name").value.trim(),
-        roll:roll,
-        course:document.getElementById("course").value.trim(),
-        cgpa:Number(document.getElementById("cgpa").value),
-        company:status==="Placed"?(document.getElementById("company").value.trim()||"Not specified"):"-",
-        package:status==="Placed"?Number(document.getElementById("package").value||0):0,
-        status:status
-    });
-
-    save();
-    this.reset();
-    toggleForm();
-    updateDashboard();
-    alert("Student added successfully!");
-});
-
-function deleteStudent(roll) {
-    if(confirm("Are you sure you want to delete this student?")) {
-        students=students.filter(s=>s.roll!==roll);
-        save();
-        updateDashboard();
-    }
-}
-
-function renderStudents() {
-    let query=document.getElementById("search").value.toLowerCase();
-
-    let filtered=students.filter(s=>
-        s.name.toLowerCase().includes(query) ||
-        s.roll.toLowerCase().includes(query)
-    );
-
-    document.getElementById("studentTable").innerHTML=filtered.map(s=>`
-        <tr>
-            <td>${escapeHTML(s.name)}</td>
-            <td>${escapeHTML(s.roll)}</td>
-            <td>${escapeHTML(s.course)}</td>
-            <td>${s.cgpa}</td>
-            <td>${escapeHTML(s.company)}</td>
-            <td>${s.package} LPA</td>
-            <td><span class="status ${s.status==="Not Placed"?"notplaced":""}">${s.status}</span></td>
-            <td><button class="delete-btn" onclick="deleteStudent(${JSON.stringify(s.roll)})">Delete</button></td>
-        </tr>
-    `).join("");
-}
-
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g,c=>({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-    }[c]));
-}
-
-function updateDashboard() {
-    let total=students.length;
-    let placed=students.filter(s=>s.status==="Placed");
-    let unplaced=total-placed.length;
-    let rate=total?Math.round(placed.length/total*100):0;
-
-    let packages=placed.map(s=>Number(s.package)).filter(p=>p>0);
-    let highest=packages.length?Math.max(...packages):0;
-    let average=packages.length?packages.reduce((a,b)=>a+b,0)/packages.length:0;
-
-    document.getElementById("total").innerText=total;
-    document.getElementById("placed").innerText=placed.length;
-    document.getElementById("unplaced").innerText=unplaced;
-    document.getElementById("rate").innerText=rate+"%";
-
-    document.getElementById("reportRate").innerText=rate+"%";
-    document.getElementById("reportPlaced").innerText=placed.length;
-    document.getElementById("reportUnplaced").innerText=unplaced;
-    document.getElementById("reportBar").style.width=rate+"%";
-    document.getElementById("highest").innerText=highest+" LPA";
-    document.getElementById("average").innerText=average.toFixed(2)+" LPA";
-
-    let rows=students.slice(-5).reverse();
-
-    document.getElementById("recentTable").innerHTML=rows.map(s=>`
-        <tr>
-            <td>${escapeHTML(s.name)}</td>
-            <td>${escapeHTML(s.course)}</td>
-            <td>${escapeHTML(s.company)}</td>
-            <td><span class="status ${s.status==="Not Placed"?"notplaced":""}">${s.status}</span></td>
-        </tr>
-    `).join("");
-
-    document.getElementById("placementTable").innerHTML=placed.map(s=>`
-        <tr>
-            <td>${escapeHTML(s.name)}</td>
-            <td>${escapeHTML(s.company)}</td>
-            <td>${s.package} LPA</td>
-            <td><span class="status">Placed</span></td>
-        </tr>
-    `).join("");
-
-    renderStudents();
-}
-
-updateDashboard();
-
+let students=JSON.parse(localStorage.getItem("placetrack_students")||"null")||sample;
+const companies=[["TechNova Solutions","Technology · Software & Analytics"],["CodeBridge Pvt Ltd","Technology · Software Development"],["DataSphere","Analytics · Business Intelligence"],["InnoByte Technologies","Technology · IT Services"],["BrightApps","Technology · Web & Mobile"],["NexGen Systems","Technology · Digital Solutions"]];
+let editIndex=-1;
+function save(){localStorage.setItem("placetrack_students",JSON.stringify(students));refresh()}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));if(id==="students")renderStudents();if(id==="placements")renderPlacements()}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function refresh(){document.getElementById("totalMetric").textContent=students.length;let placed=students.filter(s=>s.status==="Placed").length;document.getElementById("placedMetric").textContent=placed;document.getElementById("rateMetric").textContent=(students.length?Math.round(placed/students.length*100):0)+"%";document.getElementById("companyMetric").textContent=companies.length;let counts=["Placed","In Process","Not Placed"].map(st=>[st,students.filter(s=>s.status===st).length]);document.getElementById("statusBars").innerHTML=counts.map(([n,c])=>`<div class="barrow"><span>${n}</span><div class="bar"><i style="width:${students.length?c/students.length*100:0}%"></i></div><b>${c}</b></div>`).join("");renderStudents();renderPlacements();document.getElementById("companyGrid").innerHTML=companies.map(c=>`<div class="company"><h3>${c[0]}</h3><p>${c[1]}</p></div>`).join("")}
+function renderStudents(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),st=document.getElementById("statusFilter")?.value||"";let list=students.map((s,i)=>({...s,_i:i})).filter(s=>(s.name+" "+s.roll).toLowerCase().includes(q)&&(!st||s.status===st));document.getElementById("studentRows").innerHTML=list.length?list.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.roll)}</td><td>${esc(s.course)}</td><td>${esc(s.cgpa)}</td><td>${esc(s.status)}</td><td>${esc(s.company||"—")}</td><td><button class="secondary" onclick="editStudent(${s._i})">Edit</button> <button class="secondary" onclick="deleteStudent(${s._i})">Delete</button></td></tr>`).join(""):`<tr><td colspan="7" class="empty">No student records found.</td></tr>`}
+function renderPlacements(){let list=students.filter(s=>s.status!=="Not Placed");document.getElementById("placementRows").innerHTML=list.length?list.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.roll)}</td><td>${esc(s.company||"—")}</td><td>${esc(s.role||"—")}</td><td>${s.package?esc(s.package)+" LPA":"—"}</td><td>${esc(s.status)}</td></tr>`).join(""):`<tr><td colspan="6" class="empty">No placement records yet.</td></tr>`}
+function searchStudent(){let q=document.getElementById("studentQuery").value.trim().toLowerCase(),box=document.getElementById("searchResult");if(!q){box.className="empty";box.textContent="Please enter a student name or roll number.";return}let found=students.filter(s=>s.name.toLowerCase().includes(q)||s.roll.toLowerCase()===q);if(!found.length){box.className="empty";box.textContent="No matching student found. Check the name or roll number.";return}box.className="profile show";box.innerHTML=found.map(s=>`<div class="panel" style="margin-top:14px"><div class="profile-top"><div class="avatar">${esc(s.name.split(" ").map(x=>x[0]).slice(0,2).join("").toUpperCase())}</div><div><h2>${esc(s.name)}</h2><div class="sub">${esc(s.roll)} · ${esc(s.course)}</div></div><span class="pill">${esc(s.status)}</span></div><div class="details">${detail("Semester",s.semester)}${detail("CGPA",s.cgpa)}${detail("Skills",s.skills)}${detail("Certifications",s.certifications)}${detail("Company",s.company||"Not assigned")}${detail("Job Role",s.role||"—")}${detail("Package",s.package?s.package+" LPA":"—")}${detail("Interview History",s.interviews||"No interview record")}</div></div>`).join("")}
+function detail(k,v){return `<div class="detail"><small>${k}</small><strong>${esc(v||"—")}</strong></div>`}
+function openForm(){editIndex=-1;document.getElementById("recordForm").reset();document.getElementById("formTitle").textContent="Add Student Record";document.getElementById("studentForm").style.display="block";document.getElementById("studentForm").scrollIntoView({behavior:"smooth"})}
+function closeForm(){document.getElementById("studentForm").style.display="none"}
+function editStudent(i){editIndex=i;let s=students[i],f=document.getElementById("recordForm");Object.keys(s).forEach(k=>{if(f.elements[k])f.elements[k].value=s[k]});document.getElementById("formTitle").textContent="Edit Student Record";document.getElementById("studentForm").style.display="block";document.getElementById("studentForm").scrollIntoView({behavior:"smooth"})}
+function deleteStudent(i){if(confirm("Delete this student record?")){students.splice(i,1);save()}}
+document.getElementById("recordForm").addEventListener("submit",e=>{e.preventDefault();let obj=Object.fromEntries(new FormData(e.target).entries());if(students.some((s,i)=>s.roll.toLowerCase()===obj.roll.toLowerCase()&&i!==editIndex)){alert("This roll number already exists.");return}if(editIndex<0)students.push(obj);else students[editIndex]=obj;save();closeForm();e.target.reset();alert("Student record saved successfully.")});
+function downloadCSV(){let cols=["name","roll","course","semester","cgpa","skills","certifications","status","company","role","package","interviews"];let rows=[cols.join(","),...students.map(s=>cols.map(k=>'"'+String(s[k]||"").replace(/"/g,'""')+'"').join(","))];let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));a.download="student-placement-report.csv";a.click();URL.revokeObjectURL(a.href)}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+refresh();
 </script>
-
-</body>
-</html>
+</body></html>
