@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placement Pro | Student Placement Tracker</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fa;
+    color: #202b3c;
+}
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #17243b;
+    color: white;
+    position: fixed;
+    padding: 25px 15px;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    margin: 10px 10px 40px;
+}
+
+.logo span {
+    color: #36c5a1;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0;
+    border: none;
+    background: transparent;
+    color: #bdc8d8;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #293c5b;
+    color: white;
+}
+
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 15px;
+}
+
+.topbar h1 {
+    font-size: 25px;
+}
+
+.admin {
+    background: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome p {
+    color: #7c8797;
+    margin-top: 8px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.card p {
+    color: #7c8797;
+    font-size: 14px;
+}
+
+.card h2 {
+    margin-top: 15px;
+    font-size: 28px;
+}
+
+.card small {
+    color: #16a67a;
+}
+
+.content-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+button.primary {
+    background: #177cba;
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+input, select {
+    padding: 11px;
+    border: 1px solid #dce2eb;
+    border-radius: 6px;
+    outline: none;
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th, td {
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f4;
+    font-size: 14px;
+}
+
+th {
+    color: #718096;
+    background: #f8fafc;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: #d9f8eb;
+    color: #11865d;
+}
+
+.notplaced {
+    background: #fff0d9;
+    color: #bd7915;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+#studentForm {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background: #f7f9fc;
+    border-radius: 10px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.form-grid input,
+.form-grid select {
+    width: 100%;
+}
+
+.form-grid button {
+    grid-column: 1 / -1;
+}
+
+.delete-btn {
+    color: #d64b4b;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.bar {
+    background: #e9eef5;
+    height: 13px;
+    border-radius: 10px;
+    margin: 12px 0 20px;
+    overflow: hidden;
+}
+
+.bar div {
+    height: 100%;
+    background: #24b995;
+    border-radius: 10px;
+}
+
+.report-row {
+    margin-bottom: 18px;
+}
+
+footer {
+    text-align: center;
+    color: #8993a2;
+    padding: 25px;
+    font-size: 13px;
+}
+
+@media(max-width: 950px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar button {
+        width: auto;
+        display: inline-block;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 16px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="logo">PLACEMENT<span> PRO</span></div>
+
+    <button class="active" onclick="showPage('dashboard',this)">▦ Dashboard</button>
+    <button onclick="showPage('students',this)">♙ Students</button>
+    <button onclick="showPage('placements',this)">▣ Placements</button>
+    <button onclick="showPage('reports',this)">▤ Reports</button>
+</aside>
+
+<main class="main">
+
+    <div class="topbar">
+        <h1 id="pageTitle">Dashboard Overview</h1>
+        <div class="admin">Administrator</div>
+    </div>
+
+    <section id="dashboard" class="page active">
+
+        <div class="welcome">
+            <h2>Welcome to Placement Pro 👋</h2>
+            <p>Monitor student placement performance and career progress.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <p>Total Students</p>
+                <h2 id="total">5</h2>
+                <small>Registered students</small>
+            </div>
+
+            <div class="card">
+                <p>Students Placed</p>
+                <h2 id="placed">3</h2>
+                <small>Successfully placed</small>
+            </div>
+
+            <div class="card">
+                <p>Not Placed</p>
+                <h2 id="unplaced">2</h2>
+                <small>Seeking opportunities</small>
+            </div>
+
+            <div class="card">
+                <p>Placement Rate</p>
+                <h2 id="rate">60%</h2>
+                <small>Overall performance</small>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="box-header">
+                <h3>Recent Student Records</h3>
+                <button class="primary" onclick="showPage('students',document.querySelectorAll('.sidebar button')[1])">
+                    View All Students
+                </button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="students" class="page">
+
+        <div class="content-box">
+            <div class="box-header">
+                <h3>Student Management</h3>
+                <button class="primary" onclick="toggleForm()">+ Add Student</button>
+            </div>
+
+            <div id="studentForm">
+                <h3>Add New Student</h3>
+                <br>
+
+                <form class="form-grid" id="addForm">
+                    <input id="name" placeholder="Student Name" required>
+                    <input id="roll" placeholder="Roll Number" required>
+                    <input id="course" placeholder="Course" required>
+                    <input id="cgpa" type="number" min="0" max="10" step="0.01" placeholder="CGPA" required>
+                    <input id="company" placeholder="Company Name (if placed)">
+                    <input id="package" type="number" min="0" step="0.1" placeholder="Package in LPA">
+                    <select id="status">
+                        <option value="Not Placed">Not Placed</option>
+                        <option value="Placed">Placed</option>
+                    </select>
+                    <button class="primary" type="submit">Save Student</button>
+                </form>
+            </div>
+
+            <br>
+
+            <input id="search" placeholder="Search by name or roll number..." oninput="renderStudents()" style="width:100%;">
+
+            <br><br>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll No.</th>
+                            <th>Course</th>
+                            <th>CGPA</th>
+                            <th>Company</th>
+                            <th>Package</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="placements" class="page">
+        <div class="content-box">
+            <h2>Placement Records</h2>
+            <br>
+            <p>Track students who have successfully secured jobs.</p>
+            <br>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Company</th>
+                            <th>Package (LPA)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="placementTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="reports" class="page">
+        <div class="content-box">
+            <h2>Placement Performance Report</h2>
+            <br>
+
+            <div class="report-row">
+                <p>Placement Rate: <b id="reportRate">60%</b></p>
+                <div class="bar"><div id="reportBar" style="width:60%"></div></div>
+            </div>
+
+            <div class="report-row">
+                <p>Students Placed: <b id="reportPlaced">3</b></p>
+            </div>
+
+            <div class="report-row">
+                <p>Students Not Placed: <b id="reportUnplaced">2</b></p>
+            </div>
+
+            <div class="report-row">
+                <p>Highest Package: <b id="highest">8 LPA</b></p>
+            </div>
+
+            <div class="report-row">
+                <p>Average Package: <b id="average">5.17 LPA</b></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        Student Placement Performance Tracker | College Project
+    </footer>
+
+</main>
+
+<script>
+
+let students = JSON.parse(localStorage.getItem("placementStudents")) || [
+    {name:"Aarav Sharma",roll:"BCA001",course:"BCA",cgpa:8.5,company:"TCS",package:4.5,status:"Placed"},
+    {name:"Priya Verma",roll:"BCA002",course:"BCA",cgpa:9.1,company:"Infosys",package:6,status:"Placed"},
+    {name:"Rahul Singh",roll:"BCA003",course:"BCA",cgpa:7.8,company:"Wipro",package:4,status:"Placed"},
+    {name:"Neha Gupta",roll:"BCA004",course:"BCA",cgpa:8.2,company:"-",package:0,status:"Not Placed"},
+    {name:"Karan Mehta",roll:"BCA005",course:"BCA",cgpa:7.5,company:"-",package:0,status:"Not Placed"}
+];
+
+function save() {
+    localStorage.setItem("placementStudents",JSON.stringify(students));
+}
+
+function showPage(id,button) {
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".sidebar button").forEach(b=>b.classList.remove("active"));
+    if(button) button.classList.add("active");
+
+    let titles = {
+        dashboard:"Dashboard Overview",
+        students:"Student Management",
+        placements:"Placement Records",
+        reports:"Performance Reports"
+    };
+
+    document.getElementById("pageTitle").innerText=titles[id];
+    updateDashboard();
+}
+
+function toggleForm() {
+    let form=document.getElementById("studentForm");
+    form.style.display=form.style.display==="block"?"none":"block";
+}
+
+document.getElementById("addForm").addEventListener("submit",function(e) {
+    e.preventDefault();
+
+    let roll=document.getElementById("roll").value.trim();
+
+    if(students.some(s=>s.roll.toLowerCase()===roll.toLowerCase())) {
+        alert("This roll number already exists!");
+        return;
+    }
+
+    let status=document.getElementById("status").value;
+
+    students.push({
+        name:document.getElementById("name").value.trim(),
+        roll:roll,
+        course:document.getElementById("course").value.trim(),
+        cgpa:Number(document.getElementById("cgpa").value),
+        company:status==="Placed"?(document.getElementById("company").value.trim()||"Not specified"):"-",
+        package:status==="Placed"?Number(document.getElementById("package").value||0):0,
+        status:status
+    });
+
+    save();
+    this.reset();
+    toggleForm();
+    updateDashboard();
+    alert("Student added successfully!");
+});
+
+function deleteStudent(roll) {
+    if(confirm("Are you sure you want to delete this student?")) {
+        students=students.filter(s=>s.roll!==roll);
+        save();
+        updateDashboard();
+    }
+}
+
+function renderStudents() {
+    let query=document.getElementById("search").value.toLowerCase();
+
+    let filtered=students.filter(s=>
+        s.name.toLowerCase().includes(query) ||
+        s.roll.toLowerCase().includes(query)
+    );
+
+    document.getElementById("studentTable").innerHTML=filtered.map(s=>`
+        <tr>
+            <td>${escapeHTML(s.name)}</td>
+            <td>${escapeHTML(s.roll)}</td>
+            <td>${escapeHTML(s.course)}</td>
+            <td>${s.cgpa}</td>
+            <td>${escapeHTML(s.company)}</td>
+            <td>${s.package} LPA</td>
+            <td><span class="status ${s.status==="Not Placed"?"notplaced":""}">${s.status}</span></td>
+            <td><button class="delete-btn" onclick="deleteStudent(${JSON.stringify(s.roll)})">Delete</button></td>
+        </tr>
+    `).join("");
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g,c=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[c]));
+}
+
+function updateDashboard() {
+    let total=students.length;
+    let placed=students.filter(s=>s.status==="Placed");
+    let unplaced=total-placed.length;
+    let rate=total?Math.round(placed.length/total*100):0;
+
+    let packages=placed.map(s=>Number(s.package)).filter(p=>p>0);
+    let highest=packages.length?Math.max(...packages):0;
+    let average=packages.length?packages.reduce((a,b)=>a+b,0)/packages.length:0;
+
+    document.getElementById("total").innerText=total;
+    document.getElementById("placed").innerText=placed.length;
+    document.getElementById("unplaced").innerText=unplaced;
+    document.getElementById("rate").innerText=rate+"%";
+
+    document.getElementById("reportRate").innerText=rate+"%";
+    document.getElementById("reportPlaced").innerText=placed.length;
+    document.getElementById("reportUnplaced").innerText=unplaced;
+    document.getElementById("reportBar").style.width=rate+"%";
+    document.getElementById("highest").innerText=highest+" LPA";
+    document.getElementById("average").innerText=average.toFixed(2)+" LPA";
+
+    let rows=students.slice(-5).reverse();
+
+    document.getElementById("recentTable").innerHTML=rows.map(s=>`
+        <tr>
+            <td>${escapeHTML(s.name)}</td>
+            <td>${escapeHTML(s.course)}</td>
+            <td>${escapeHTML(s.company)}</td>
+            <td><span class="status ${s.status==="Not Placed"?"notplaced":""}">${s.status}</span></td>
+        </tr>
+    `).join("");
+
+    document.getElementById("placementTable").innerHTML=placed.map(s=>`
+        <tr>
+            <td>${escapeHTML(s.name)}</td>
+            <td>${escapeHTML(s.company)}</td>
+            <td>${s.package} LPA</td>
+            <td><span class="status">Placed</span></td>
+        </tr>
+    `).join("");
+
+    renderStudents();
+}
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
