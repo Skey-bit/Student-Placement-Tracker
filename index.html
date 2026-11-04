@@ -180,7 +180,36 @@ function closeForm(){document.getElementById("studentForm").style.display="none"
 function editStudent(i){editIndex=i;let s=students[i],f=document.getElementById("recordForm");Object.keys(s).forEach(k=>{if(f.elements[k])f.elements[k].value=s[k]});document.getElementById("formTitle").textContent="Edit Student Record";document.getElementById("studentForm").style.display="block";document.getElementById("studentForm").scrollIntoView({behavior:"smooth"})}
 function deleteStudent(i){if(confirm("Delete this student record?")){students.splice(i,1);save()}}
 document.getElementById("recordForm").addEventListener("submit",e=>{e.preventDefault();let obj=Object.fromEntries(new FormData(e.target).entries());if(students.some((s,i)=>s.roll.toLowerCase()===obj.roll.toLowerCase()&&i!==editIndex)){alert("This roll number already exists.");return}if(editIndex<0)students.push(obj);else students[editIndex]=obj;save();closeForm();e.target.reset();alert("Student record saved successfully.")});
-function downloadCSV(){let cols=["name","roll","course","semester","cgpa","skills","certifications","status","company","role","package","interviews"];let rows=[cols.join(","),...students.map(s=>cols.map(k=>'"'+String(s[k]||"").replace(/"/g,'""')+'"').join(","))];let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));a.download="student-placement-report.csv";a.click();URL.revokeObjectURL(a.href)}
+function downloadCSV(){
+    const loadExcel = () => {
+        const data = students.map(student => {
+            const row = {};
+            Object.keys(student).forEach(key => {
+                let value = student[key];
+                row[key] = Array.isArray(value)
+                    ? value.join(", ")
+                    : value;
+            });
+            return row;
+        });
+
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Student Report");
+
+        XLSX.writeFile(workbook, "Placement_Student_Report.xlsx");
+    };
+
+    if (typeof XLSX === "undefined") {
+        const script = document.createElement("script");
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+        script.onload = loadExcel;
+        document.head.appendChild(script);
+    } else {
+        loadExcel();
+    }
+}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 refresh();
 </script>
